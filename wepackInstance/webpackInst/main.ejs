@@ -1,0 +1,17 @@
+(function (modules) { 
+    // 替换require的function
+    function __webpack_require__(moduleId) {
+        //执行模块
+        modules[moduleId]( __webpack_require__);
+    }
+    // 加载入口模块
+     __webpack_require__(`<%- entry %>`);
+})
+({
+<% for(let key in modules){ %>
+"<%- key %>":
+(function(__webpack_require__) {
+eval(`<%- modules[key] %>`)
+}),
+<% } %>
+})
